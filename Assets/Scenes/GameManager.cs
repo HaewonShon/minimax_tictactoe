@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     public bool usePruning;
 
+    public Text timeMeasure;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +44,16 @@ public class GameManager : MonoBehaviour
         }
         else // Game does not end -> run AI turn and check status again
         {
+            // time measrue start
+            float start = Time.realtimeSinceStartup;
+
             int[] aiMove = ai.GetNextSpot(usePruning);
+
+            float end = Time.realtimeSinceStartup;
+
+            // time measrue finish
+            timeMeasure.text = "Time: " + ((end - start) * 1000).ToString() + "ms";
+
             board.AIPick(aiMove[0], aiMove[1]);
 
             state = GameState.PLAYER_TURN;
