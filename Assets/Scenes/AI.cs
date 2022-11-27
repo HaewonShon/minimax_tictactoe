@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class AI
 {
     public Board board;
-    public const int WIN = 10;
-    public const int LOSE = -10;
+    public const int WIN = 100;
+    public const int LOSE = -100;
     
     public int[] Minimax(bool isAITurn, int depth) // int[3] {score, x, y}
     {
@@ -52,7 +52,7 @@ public class AI
                     int[] result = Minimax(!isAITurn, depth + 1);
                     if (result[0] > best[0])
                     {
-                        best[0] = result[0];
+                        best[0] = result[0] - depth;
                         best[1] = j;
                         best[2] = i;
                     }
@@ -67,7 +67,7 @@ public class AI
                     int[] result = Minimax(!isAITurn, depth + 1);
                     if (result[0] < best[0]) // get minimum score
                     {
-                        best[0] = result[0];
+                        best[0] = result[0] + depth;
                         best[1] = j;
                         best[2] = i;
                     }
@@ -123,7 +123,7 @@ public class AI
                     int[] result = MinimaxPruning(!isAITurn, depth + 1, alpha, beta);
                     if (result[0] > best[0])
                     {
-                        best[0] = result[0];
+                        best[0] = result[0] - depth;
                         best[1] = j;
                         best[2] = i;
 
@@ -144,7 +144,7 @@ public class AI
                     int[] result = MinimaxPruning(!isAITurn, depth + 1, alpha, beta);
                     if (result[0] < best[0]) // get minimum score
                     {
-                        best[0] = result[0];
+                        best[0] = result[0] + depth;
                         best[1] = j;
                         best[2] = i;
 
